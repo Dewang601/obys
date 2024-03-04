@@ -82,7 +82,7 @@ function loading() {
     opacity: 0,
   });
 }
-// loading();
+loading();
 const videoBtn = document.querySelector(".videoBtn");
 let videoContainer = document.querySelector(".videocontent");
 videoContainer.addEventListener("mouseenter", function () {
@@ -175,3 +175,16 @@ function sheryAnimation() {
   });
 }
 sheryAnimation();
+let flag=document.querySelector('#flag')
+document.addEventListener("mousemove",function(detail){
+   gsap.to(flag,{
+    top:detail.y,
+    left:detail.x
+   })
+})
+document.querySelector("#hero3").addEventListener("mouseenter",function(){
+  flag.style.opacity=1
+})
+document.querySelector("#hero3").addEventListener("mouseleave",function(){
+  flag.style.opacity=0
+})
