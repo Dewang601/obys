@@ -9,13 +9,14 @@
 }
 html,
 body {
-  overflow-y: scroll;
+  
   width: 100%;
   height: 100%;
   background-color: #151515;
   color: rgb(253, 251, 251);
 }
 main {
+  overflow-y: auto;
   position: relative;
 }
 #flag {
