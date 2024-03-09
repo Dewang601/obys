@@ -1,4 +1,6 @@
-let video=document.querySelector(".videocontent video")
+let video = document.querySelector(".videocontent video");
+const videoBtn = document.querySelector(".videoBtn");
+let videoContainer = document.querySelector(".videocontent");
 gsap.registerPlugin(ScrollTrigger);
 // Using Locomotive Scroll from Locomotive https://github.com/locomotivemtl/locomotive-scroll
 
@@ -82,46 +84,50 @@ function loading() {
     opacity: 0,
   });
 }
-loading();
-const videoBtn = document.querySelector(".videoBtn");
-let videoContainer = document.querySelector(".videocontent");
+// loading();
+
+ 
+
 videoContainer.addEventListener("mouseenter", function () {
   videoContainer.addEventListener("mousemove", function (elem) {
     gsap.to(videoBtn, {
-      left: elem.x - 500,
+      left: elem.x - 600,
     });
   });
 });
 videoContainer.addEventListener("mouseleave", function () {
-   
-  gsap.to(videoBtn,{
-    left:"80%"
-  })
-  gsap.to(".videocontent video",{
-    display:"none",
-    paused: true ,
+  gsap.to(videoBtn, {
+    left: "80%",
+  });
+  gsap.to(".videocontent video", {
+    display: "none",
+    paused: true,
     currentTime: 0,
-    
-})
-gsap.to(".videocontent #mainImg",{
-    opacity:1
-})
-    video.pause(),
-    videoPlayer.currentTime = 0,
-    videoPlayer.play();
+  });
+  gsap.to(".videocontent #mainImg", {
+    opacity: 1,
+  });
+  video.pause(), (videoPlayer.currentTime = 0), videoPlayer.play();
 });
-videoBtn.addEventListener("click",function(){
-video.play()
-gsap.to(".videocontent video",{
-    display:"block"
-    
-})
-gsap.to(".videocontent #mainImg",{
-    opacity:0
-})
-})
 
-
+videoBtn.addEventListener("click", function () {
+  video.play();
+  gsap.to(".videocontent video", {
+    display: "block",
+  });
+  gsap.to(".videocontent #mainImg", {
+    opacity: 0,
+  });
+});
+videoBtn.addEventListener("touchstart", function () {
+  video.play();
+  gsap.to(".videocontent video", {
+    display: "block",
+  });
+  gsap.to(".videocontent #mainImg", {
+    opacity: 0,
+  });
+});
 
 document.addEventListener("mousemove", function (event) {
   gsap.to("#crsr", {
@@ -175,16 +181,60 @@ function sheryAnimation() {
   });
 }
 sheryAnimation();
-let flag=document.querySelector('#flag')
-document.addEventListener("mousemove",function(detail){
-   gsap.to(flag,{
-    top:detail.y,
-    left:detail.x
-   })
-})
-document.querySelector("#hero3").addEventListener("mouseenter",function(){
-  flag.style.opacity=1
-})
-document.querySelector("#hero3").addEventListener("mouseleave",function(){
-  flag.style.opacity=0
-})
+let flag = document.querySelector("#flag");
+document.addEventListener("mousemove", function (detail) {
+  gsap.to(flag, {
+    top: detail.y,
+    left: detail.x,
+  });
+});
+document.querySelector("#hero3").addEventListener("mouseenter", function () {
+  flag.style.opacity = 1;
+});
+document.querySelector("#hero3").addEventListener("mouseleave", function () {
+  flag.style.opacity = 0;
+});
+const i = document.querySelector("i");
+
+let pauseplay = 0;
+function change() {
+  if (pauseplay === 0) {
+    i.style.display = "block";
+    document.querySelector(".videoBtn img").style.display = "none";
+    pauseplay = 1;
+  } else {
+    i.style.display = "none";
+    document.querySelector(".videoBtn img").style.display = "block";
+    video.pause();
+    pauseplay = 0;
+  }
+}
+videoBtn.addEventListener("click", function () {
+  change();
+});
+
+let isPlaying = false;
+    function toggleVideo() {
+      if (!isPlaying) {
+        i.style.display = "none";
+        document.querySelector(".videoBtn img").style.display = "block";
+        video.pause();
+        videoBtn.style.scale=1
+        videoBtn.style.opacity="1"
+        gsap.to(".videocontent #mainImg", {
+          opacity: 1,
+        });
+      } else {
+        i.style.display = "block";
+        document.querySelector(".videoBtn img").style.display = "none";
+        video.play();
+        videoBtn.style.scale="0.5"
+        videoBtn.style.opacity="0.5"
+      }
+      isPlaying = !isPlaying;
+    }
+    // Using touchstart and touchend events
+    videoBtn.addEventListener('touchstart', toggleVideo);
+    // videoBtn.addEventListener('touchend', toggleVideo);
+
+   
